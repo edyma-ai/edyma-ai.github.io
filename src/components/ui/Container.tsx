@@ -4,13 +4,14 @@ import { cn } from '@/lib/cn'
 interface ContainerProps {
   children: ReactNode
   className?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
 const sizes = {
   sm: 'max-w-xl',
   md: 'max-w-2xl',
   lg: 'max-w-4xl',
+  xl: 'max-w-6xl',
 } as const
 
 export function Container({ children, className, size = 'md' }: ContainerProps) {
