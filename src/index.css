@@ -56,3 +56,18 @@ body {
 .delay-400 {
   animation-delay: 0.4s;
 }
+
+.present-theme-light {
+  --color-bg: #f8fafc;
+  --color-surface: #f1f5f9;
+  --color-surface-hover: #e2e8f0;
+  --color-fg: #0f172a;
+  --color-muted: #64748b;
+  --color-border: #cbd5e1;
+  --color-accent: #0284c7;
+  --color-accent-hover: #0369a1;
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-primary-muted: rgba(2, 132, 199, 0.1);
+  --color-primary-fg: #ffffff;
+}
