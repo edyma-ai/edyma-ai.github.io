@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://edyma.in/privacy-policy" />
+    <title>Privacy Policy — Edyma</title>
+    <meta
+      name="description"
+      content="Privacy Policy for Edyma AI / Edyma Academy. How we handle data for students, teachers, and schools in compliance with DPDPA, 2023."
+    />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --fg: #f1f5f9;
+        --fg-soft: rgba(241, 245, 249, 0.9);
+        --muted: #94a3b8;
+        --border: #334155;
+        --border-soft: rgba(51, 65, 85, 0.6);
+        --border-softer: rgba(51, 65, 85, 0.4);
+        --accent: #77c6fc;
+        --accent-hover: #bbe3fe;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+          Roboto, Ubuntu, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .page {
+        display: flex;
+        min-height: 100dvh;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+        padding: 48px 20px;
+      }
+
+      @media (min-width: 640px) {
+        main {
+          padding: 64px 24px;
+        }
+      }
+
+      .container {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 56rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+
+      .back-link:hover {
+        color: var(--accent-hover);
+      }
+
+      .back-link svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      header.page-header {
+        margin-top: 24px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border-soft);
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      @media (min-width: 640px) {
+        h1 {
+          font-size: 36px;
+        }
+      }
+
+      dl.meta {
+        margin: 16px 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 24px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      dl.meta > div {
+        display: flex;
+        gap: 8px;
+      }
+
+      dl.meta dt {
+        margin: 0;
+        font-weight: 500;
+        color: rgba(241, 245, 249, 0.8);
+      }
+
+      dl.meta dd {
+        margin: 0;
+      }
+
+      .prose {
+        margin-top: 8px;
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--fg-soft);
+      }
+
+      .prose h2 {
+        margin: 40px 0 12px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--fg);
+      }
+
+      .prose p {
+        margin: 12px 0;
+      }
+
+      .prose ul {
+        margin: 12px 0;
+        padding-left: 20px;
+        list-style: disc;
+      }
+
+      .prose li {
+        margin: 8px 0;
+      }
+
+      .prose li::marker {
+        color: var(--muted);
+      }
+
+      .prose strong {
+        font-weight: 600;
+        color: var(--fg);
+      }
+
+      .prose a {
+        color: var(--accent);
+        text-underline-offset: 2px;
+      }
+
+      .prose a:hover {
+        color: var(--accent-hover);
+        text-decoration: underline;
+      }
+
+      .prose code {
+        background: var(--surface);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+      }
+
+      .prose .note {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      footer.site-footer {
+        border-top: 1px solid var(--border-soft);
+      }
+
+      .footer-inner {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 72rem;
+        padding: 40px 20px;
+      }
+
+      @media (min-width: 640px) {
+        .footer-inner {
+          padding: 40px 24px;
+        }
+      }
+
+      .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      @media (min-width: 640px) {
+        .footer-grid {
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+        }
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand img {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background: #fff;
+        padding: 2px;
+      }
+
+      .brand-name {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .brand-tag {
+        margin: 8px 0 0;
+        max-width: 20rem;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .footer-cols {
+        display: flex;
+        gap: 48px;
+        font-size: 14px;
+      }
+
+      .footer-cols h4 {
+        margin: 0 0 12px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .footer-cols ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        color: var(--muted);
+      }
+
+      .footer-cols li {
+        margin: 8px 0;
+      }
+
+      .footer-cols a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+
+      .footer-cols a:hover {
+        color: var(--fg);
+      }
+
+      .copyright {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-softer);
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <main>
+        <div class="container">
+          <a class="back-link" href="/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back
+          </a>
+
+          <header class="page-header">
+            <p class="eyebrow">Legal</p>
+            <h1>Privacy Policy for Edyma AI / Edyma Academy</h1>
+            <dl class="meta">
+              <div>
+                <dt>Effective date:</dt>
+                <dd>April 18, 2026</dd>
+              </div>
+              <div>
+                <dt>Last updated:</dt>
+                <dd>April 18, 2026</dd>
+              </div>
+            </dl>
+          </header>
+
+          <div class="prose">
+            <h2>1. Introduction</h2>
+            <p>
+              Edyma AI (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) provides an
+              AI-powered educational platform designed for school-based environments. This policy
+              describes how we handle data for our users (Students in Classes 5&ndash;10 and
+              Teachers). We are committed to student privacy and maintain strict adherence to the
+              Digital Personal Data Protection Act (DPDPA), 2023 and other applicable educational
+              data protection standards.
+            </p>
+
+            <h2>2. Information We Collect</h2>
+            <p>
+              We collect data provided by educational institutions, as well as information generated
+              through the use of the app:
+            </p>
+            <ul>
+              <li>
+                <strong>Account Data:</strong> Names and school-issued email addresses. These
+                accounts are provisioned by Edyma AI in coordination with the educational
+                institution; users cannot create accounts independently within the app.
+              </li>
+              <li>
+                <strong>Profile Information:</strong> Users may optionally upload a profile picture.
+                These images are stored in our secure database and are visible to the student&apos;s
+                assigned teacher and school administrators to facilitate identification and
+                classroom management.
+              </li>
+              <li>
+                <strong>Classroom Context:</strong> Grade level, section details, and academic year
+                to deliver relevant curriculum.
+              </li>
+              <li>
+                <strong>Assignments:</strong> Answers submitted for evaluation and the resulting
+                AI-generated feedback.
+              </li>
+              <li>
+                <strong>Audio Data (Voice-to-Text):</strong> The app uses the
+                <code>RECORD_AUDIO</code> permission to allow users to speak prompts. Audio
+                processing is handled entirely on the user&apos;s device using system-level
+                libraries. Audio recordings are <strong>never</strong> transmitted to our servers,
+                are not stored in our database, and are not shared with third parties.
+              </li>
+              <li>
+                <strong>User Interactions &amp; Chat History:</strong> We store chat sessions
+                between students and the AI &ldquo;Ask&rdquo; assistant. These interactions are
+                saved in our secure database to provide learning continuity, safety monitoring, and
+                quality assurance.
+              </li>
+              <li>
+                <strong>Diagnostic Data:</strong> We use Bugsnag to monitor app stability and
+                performance. This includes non-identifiable technical data such as crash logs,
+                device model, and OS version to help us troubleshoot errors.
+              </li>
+              <li>
+                <strong>Content:</strong> Teacher Learning Modules (TLM) including text and
+                outlines. Images used within these modules are provided by Edyma AI and stored in
+                our database; they do not contain personal student information.
+              </li>
+            </ul>
+
+            <h2>3. App Permissions</h2>
+            <p>
+              The Edyma mobile app requests only the minimum Android permissions required for core
+              functionality:
+            </p>
+            <ul>
+              <li>
+                <strong>Internet</strong> (<code>INTERNET</code>): Required to communicate with our
+                backend services for authentication, classroom content, and AI responses.
+              </li>
+              <li>
+                <strong>Microphone</strong> (<code>RECORD_AUDIO</code>): Used only when the user
+                explicitly taps the voice input button. Audio is processed on-device via the system
+                speech-to-text service and is never uploaded or stored.
+              </li>
+              <li>
+                <strong>Photos &amp; Media</strong> (<code>READ_MEDIA_IMAGES</code>): Used only when
+                the user chooses to upload a profile picture from their device. We do not access any
+                other photos.
+              </li>
+            </ul>
+
+            <h2>4. Data Usage &amp; AI Processing</h2>
+            <ul>
+              <li>
+                <strong>AI Tutoring:</strong> Queries submitted to the AI assistant are processed to
+                generate educational responses. Personal identifiers (names, emails, or profile
+                pictures) are never shared with AI sub-processors.
+              </li>
+              <li>
+                <strong>Academic Evaluation:</strong> AI is used to evaluate assignments to provide
+                feedback on accuracy and conceptual understanding.
+              </li>
+              <li>
+                <strong>Visibility:</strong> Student performance data, chat histories, and profile
+                pictures are shared exclusively with the student&apos;s assigned teacher and
+                relevant school administrators.
+              </li>
+            </ul>
+
+            <h2>5. Email Usage &amp; Compliance</h2>
+            <p>School-issued email addresses are used strictly for:</p>
+            <ul>
+              <li>Secure authentication and account management.</li>
+              <li>Critical administrative notifications or account recovery.</li>
+            </ul>
+            <p>
+              <strong>Compliance:</strong> We do not use student or teacher emails for marketing,
+              advertising, or any third-party commercial purposes.
+            </p>
+
+            <h2>6. Third-Party Services</h2>
+            <ul>
+              <li>
+                <strong>Cloud Infrastructure:</strong> Data is securely hosted using Amazon Web
+                Services (AWS) and managed via MongoDB.
+              </li>
+              <li>
+                <strong>Stability Monitoring:</strong> We use Bugsnag for real-time error reporting
+                to ensure app reliability.
+              </li>
+              <li>
+                <strong>AI Processing:</strong> We utilize secure, enterprise-grade AI models for
+                educational insights.
+              </li>
+            </ul>
+
+            <h2>7. Data Sharing</h2>
+            <p>
+              We do <strong>not</strong> sell personal information. We share limited data only with:
+            </p>
+            <ul>
+              <li>
+                The student&apos;s assigned teachers and school administrators, for legitimate
+                educational purposes.
+              </li>
+              <li>
+                Sub-processors listed in Section 6, strictly to operate the service. These
+                processors are bound by contract to protect user data and may not use it for any
+                other purpose.
+              </li>
+              <li>Law enforcement or regulators where required by applicable Indian law.</li>
+            </ul>
+
+            <h2>8. Security, Retention &amp; Data Deletion</h2>
+            <ul>
+              <li>
+                <strong>Encryption:</strong> All data is encrypted during transit (TLS/SSL) and at
+                rest.
+              </li>
+              <li>
+                <strong>Retention:</strong> We retain academic records and chat histories for the
+                duration of the school&apos;s contract to support the student&apos;s learning
+                journey.
+              </li>
+              <li>
+                <strong>Data Deletion:</strong> As accounts are provisioned through schools, parents
+                or school administrators can request the deletion of student data or profile
+                pictures at any time. Upon a verified request from the school authority, we will
+                securely purge the records from our servers within 30 days in accordance with DPDPA
+                guidelines.
+              </li>
+              <li>
+                <strong>How to request deletion:</strong> Email
+                <a href="mailto:team.edyma@gmail.com">team.edyma@gmail.com</a> from your
+                school-issued or registered address with the subject line &ldquo;Data Deletion
+                Request&rdquo; and include the affected user&apos;s name and school.
+              </li>
+            </ul>
+
+            <h2>9. Children&apos;s Privacy (DPDPA Compliance)</h2>
+            <p>
+              We comply with the Digital Personal Data Protection Act (DPDPA), 2023 regarding the
+              processing of personal data of children. As a B2B service:
+            </p>
+            <ul>
+              <li>
+                We process children&apos;s data based on the &ldquo;Notice and Consent&rdquo;
+                framework where schools act as the authorized intermediaries for parental consent.
+              </li>
+              <li>
+                We do not engage in tracking, behavioral monitoring, or targeted advertising
+                directed at children.
+              </li>
+              <li>
+                We maintain high standards of &ldquo;Privacy by Design&rdquo; to ensure no harm is
+                caused to children through their use of the platform.
+              </li>
+            </ul>
+
+            <h2>10. Your Rights</h2>
+            <p>
+              Subject to the DPDPA, 2023 and applicable law, users (or, in the case of children,
+              their parents or school administrators acting on their behalf) have the right to:
+            </p>
+            <ul>
+              <li>Access the personal data we hold about them.</li>
+              <li>Request correction of inaccurate or incomplete data.</li>
+              <li>Request erasure of their personal data.</li>
+              <li>
+                Withdraw previously given consent (this may limit the ability to use the service).
+              </li>
+              <li>
+                Lodge a grievance with us using the contact details in Section 12 below, or with the
+                Data Protection Board of India.
+              </li>
+            </ul>
+
+            <h2>11. Changes to This Policy</h2>
+            <p>
+              We may update this policy from time to time to reflect changes in our practices,
+              technology, or legal requirements. When we make material changes we will update the
+              &ldquo;Last updated&rdquo; date above and, where appropriate, notify schools by email.
+              Continued use of the service after the update constitutes acceptance of the revised
+              policy.
+            </p>
+
+            <h2>12. Contact &amp; Grievance Officer</h2>
+            <p>For data inquiries, grievances, or support:</p>
+            <ul>
+              <li>
+                Email: <a href="mailto:team.edyma@gmail.com">team.edyma@gmail.com</a>
+              </li>
+            </ul>
+            <p class="note">
+              We aim to acknowledge all grievances within 7 business days and resolve verified
+              requests within 30 days.
+            </p>
+
+            <h2>13. Governing Law</h2>
+            <p>
+              This Privacy Policy is governed by the laws of India. Any disputes arising out of or
+              in connection with this policy shall be subject to the exclusive jurisdiction of the
+              courts located in India.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-grid">
+            <div>
+              <div class="brand">
+                <img src="/logo.png" alt="" />
+                <span class="brand-name">Edyma</span>
+              </div>
+              <p class="brand-tag">AI-powered academic platform built by IIT engineers.</p>
+            </div>
+
+            <div class="footer-cols">
+              <div>
+                <h4>Product</h4>
+                <ul>
+                  <li>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=in.edyma.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >Download App</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4>Legal</h4>
+                <ul>
+                  <li><a href="/privacy-policy">Privacy Policy</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Contact</h4>
+                <ul>
+                  <li><a href="mailto:team.edyma@gmail.com">team.edyma@gmail.com</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="copyright">
+            &copy; <span id="year"></span> Edyma. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
