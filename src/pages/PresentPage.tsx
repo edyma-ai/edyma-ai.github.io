@@ -18,8 +18,8 @@ type PresentTheme = 'light' | 'dark'
 const PRESENT_THEME_KEY = 'edyma-present-theme'
 
 function readPresentTheme(): PresentTheme {
-  if (typeof window === 'undefined') return 'dark'
-  return localStorage.getItem(PRESENT_THEME_KEY) === 'light' ? 'light' : 'dark'
+  if (typeof window === 'undefined') return 'light'
+  return localStorage.getItem(PRESENT_THEME_KEY) === 'dark' ? 'dark' : 'light'
 }
 
 export function PresentPage() {
