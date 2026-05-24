@@ -98,7 +98,7 @@ export function PresentPage() {
 
   if (view === 'presenting' && sections.length > 0) {
     return (
-      <div className={cn('min-h-dvh bg-bg', theme === 'light' && 'present-theme-light')}>
+      <div className={cn('min-h-screen bg-bg', theme === 'light' && 'present-theme-light')}>
         <PresentationThemeToggle theme={theme} onToggle={toggleTheme} />
         <PresentationContent title={title} sections={sections} />
       </div>
@@ -107,7 +107,7 @@ export function PresentPage() {
 
   if (view === 'ended') {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-bg px-6">
+      <div className="flex min-h-screen items-center justify-center bg-bg px-6">
         <div className="max-w-md rounded-2xl border border-border bg-surface p-8 text-center">
           <h1 className="text-2xl font-semibold text-fg">Presentation ended</h1>
           <p className="mt-3 text-muted">
@@ -119,7 +119,7 @@ export function PresentPage() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-bg px-6 py-10">
+    <div className="flex min-h-screen items-center justify-center bg-bg px-6 py-10">
       <div className="flex w-full max-w-md flex-col items-center gap-8 text-center">
         <div>
           <h1 className="text-3xl font-bold text-fg">Ready to present</h1>

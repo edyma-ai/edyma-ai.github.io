@@ -52,7 +52,8 @@
 
 .markdown-body p {
   margin: 0 0 0.5rem;
-  color: color-mix(in srgb, var(--color-fg) 92%, transparent);
+  color: var(--color-fg);
+  opacity: 0.92;
 }
 
 .markdown-body strong {
@@ -77,7 +78,8 @@
 
 .markdown-body li {
   margin: 0.25rem 0;
-  color: color-mix(in srgb, var(--color-fg) 92%, transparent);
+  color: var(--color-fg);
+  opacity: 0.92;
 }
 
 .markdown-body li::marker {
@@ -87,7 +89,7 @@
 .markdown-body blockquote {
   margin: 0.75rem 0;
   padding: 0.625rem 0.75rem 0.625rem 0.875rem;
-  border-left: 4px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+  border-left: 4px solid var(--color-accent);
   border-radius: 0 6px 6px 0;
   background: var(--color-surface);
   color: var(--color-muted);
@@ -189,7 +191,10 @@
 
 .markdown-lightbox {
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 50;
   display: flex;
   align-items: center;

@@ -6,7 +6,7 @@ interface SiteLayoutProps {
 
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-screen flex-col">
       <main className="flex flex-1 flex-col">{children}</main>
     </div>
   )

@@ -26,6 +26,7 @@ html {
 body {
   @apply bg-bg text-fg font-sans;
   margin: 0;
+  min-height: 100vh;
   min-height: 100dvh;
 }
 
