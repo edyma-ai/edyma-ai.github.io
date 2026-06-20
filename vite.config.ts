@@ -9,9 +9,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
     legacy({
-      targets: ['defaults', 'Chrome >= 49', 'Samsung >= 6'],
+      targets: ['defaults', 'Chrome >= 30', 'Samsung >= 4'],
       modernTargets: ['defaults'],
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      polyfills: true,
     }),
   ],
   resolve: {

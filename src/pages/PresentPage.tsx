@@ -51,7 +51,10 @@ export function PresentPage() {
   }, [])
 
   useEffect(() => {
-    void refreshHost()
+    const init = async () => {
+      await refreshHost()
+    }
+    void init()
   }, [refreshHost])
 
   useEffect(() => {

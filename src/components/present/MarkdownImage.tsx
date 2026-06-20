@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { ExtraProps } from 'react-markdown'
 
 type MarkdownImageProps = React.ImgHTMLAttributes<HTMLImageElement> & ExtraProps
@@ -8,10 +8,14 @@ export function MarkdownImage({ src, alt }: MarkdownImageProps) {
   const [error, setError] = useState(false)
   const [lightbox, setLightbox] = useState(false)
 
-  useEffect(() => {
+  // Reset load/error state when the source changes — done during render (the
+  // recommended pattern) rather than in an effect to avoid an extra pass.
+  const [prevSrc, setPrevSrc] = useState(src)
+  if (src !== prevSrc) {
+    setPrevSrc(src)
     setLoaded(false)
     setError(false)
-  }, [src])
+  }
 
   if (!src) {
     return (

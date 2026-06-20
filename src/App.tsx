@@ -1,5 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { SiteLayout } from '@/layouts/SiteLayout'
+import { BoardEditorPage } from '@/pages/BoardEditorPage'
+import { BoardsListPage } from '@/pages/BoardsListPage'
 import { HomePage } from '@/pages/HomePage'
 import { PresentPage } from '@/pages/PresentPage'
 import { PrivacyPolicyPage } from '@/pages/PrivacyPolicyPage'
@@ -9,6 +11,15 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/present" element={<PresentPage />} />
+        <Route path="/boards/:id" element={<BoardEditorPage />} />
+        <Route
+          path="/boards"
+          element={
+            <SiteLayout>
+              <BoardsListPage />
+            </SiteLayout>
+          }
+        />
         <Route
           path="/"
           element={
