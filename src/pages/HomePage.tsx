@@ -42,7 +42,7 @@ function Hero() {
             </h1>
             <p className="animate-fade-in-up delay-200 mt-6 max-w-xl text-lg leading-relaxed text-muted">
               Edyma gives every child a private AI tutor grounded in their own syllabus, and gives
-              teachers back the hours they lose to grading and prep. Built for Indian classrooms.
+              teachers back the hours they lose to grading and prep.
             </p>
             <div className="animate-fade-in-up delay-300 mt-9 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={SITE.playStoreUrl} external>
@@ -263,7 +263,7 @@ const FAQS = [
   },
   {
     q: 'Is it safe and private?',
-    a: 'Yes. A student’s conversations stay private to them, the app requests only the minimum permissions it needs, and data is handled under India’s DPDPA, 2023.',
+    a: 'Yes. A student’s conversations stay private to them, the app requests only the minimum permissions it needs, and data is handled responsibly under applicable data-protection law.',
   },
   {
     q: 'Does it replace the teacher?',

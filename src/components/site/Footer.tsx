@@ -10,8 +10,7 @@ export function Footer() {
           <div className="max-w-xs">
             <Logo />
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              A personal AI tutor for every student, and a co-pilot for every teacher. Built for
-              Indian classrooms.
+              A personal AI tutor for every student, and a co-pilot for every teacher.
             </p>
             <p className="mt-4 text-sm font-semibold text-accent">{SITE.brandLine}</p>
           </div>
