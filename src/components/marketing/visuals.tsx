@@ -6,7 +6,65 @@ import { cn } from '@/lib/cn'
  * real app UI or customer data.
  */
 
-/** A tutor chat that shows the "guides, never just hands the answer" behaviour. */
+function Arrow() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0 text-accent">
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function LeafGlyph() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 20c0-8 6-14 16-16C18 12 12 18 4 20Z" fill="#1FA463" />
+      <path d="M4.5 19.5C8 14 12 11 16.5 9" stroke="#EAF4FD" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/** The illustrative diagram Edyma replies with (the "image" in the answer). */
+function PhotosynthesisDiagram() {
+  return (
+    <div className="rounded-xl border border-border bg-card p-2.5">
+      <div className="flex items-center justify-between gap-1.5">
+        <div className="flex flex-col gap-1">
+          {['Sunlight', 'Water', 'CO₂'].map((l) => (
+            <span
+              key={l}
+              className="rounded-md bg-sky-50 px-1.5 py-0.5 text-center text-[10px] font-semibold text-fg"
+            >
+              {l}
+            </span>
+          ))}
+        </div>
+        <Arrow />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green/10">
+          <LeafGlyph />
+        </span>
+        <Arrow />
+        <div className="flex flex-col gap-1">
+          {['Glucose', 'Oxygen'].map((l) => (
+            <span
+              key={l}
+              className="rounded-md bg-green/10 px-1.5 py-0.5 text-center text-[10px] font-semibold text-green"
+            >
+              {l}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** A tutor chat that shows a short, illustrated answer that guides with a follow-up. */
 export function TutorChat({ className }: { className?: string }) {
   return (
     <div
@@ -30,24 +88,22 @@ export function TutorChat({ className }: { className?: string }) {
 
       <div className="space-y-3 pt-4">
         <div className="ml-auto max-w-[80%] rounded-2xl rounded-tr-sm bg-primary px-3.5 py-2.5 text-sm text-primary-fg">
-          Why do leaves look green?
+          Explain photosynthesis simply
         </div>
-        <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-surface px-3.5 py-2.5 text-sm text-fg">
-          Great question. Leaves are full of a pigment that soaks up some colours of light and
-          reflects others back.
-          <span className="mt-2 block font-semibold text-fg">
-            Which colour do you think it reflects to your eyes?
-          </span>
+        <div className="max-w-[92%] space-y-2.5 rounded-2xl rounded-tl-sm bg-surface px-3.5 py-3 text-sm text-fg">
+          <p>Plants make their own food from sunlight, water, and air. Like this:</p>
+          <PhotosynthesisDiagram />
+          <p className="font-semibold text-fg">Which one do you think the plant gives back to the air?</p>
         </div>
         <div className="flex gap-2">
           <span className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-fg">
-            Green
+            Oxygen
           </span>
           <span className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted">
-            Red
+            Glucose
           </span>
           <span className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted">
-            Not sure
+            Water
           </span>
         </div>
       </div>
