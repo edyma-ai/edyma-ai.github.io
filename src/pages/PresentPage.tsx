@@ -101,7 +101,7 @@ export function PresentPage() {
 
   if (view === 'presenting' && sections.length > 0) {
     return (
-      <div className={cn('min-h-screen bg-bg', theme === 'light' && 'present-theme-light')}>
+      <div className={cn('min-h-screen bg-bg', theme === 'dark' && 'present-theme-dark')}>
         <PresentationThemeToggle theme={theme} onToggle={toggleTheme} />
         <PresentationContent title={title} sections={sections} />
       </div>

@@ -3,6 +3,7 @@ import { SiteLayout } from '@/layouts/SiteLayout'
 import { BoardEditorPage } from '@/pages/BoardEditorPage'
 import { BoardsListPage } from '@/pages/BoardsListPage'
 import { HomePage } from '@/pages/HomePage'
+import { SchoolsPage } from '@/pages/SchoolsPage'
 import { PresentPage } from '@/pages/PresentPage'
 import { PrivacyPolicyPage } from '@/pages/PrivacyPolicyPage'
 
@@ -25,6 +26,14 @@ export default function App() {
           element={
             <SiteLayout>
               <HomePage />
+            </SiteLayout>
+          }
+        />
+        <Route
+          path="/schools"
+          element={
+            <SiteLayout>
+              <SchoolsPage />
             </SiteLayout>
           }
         />
