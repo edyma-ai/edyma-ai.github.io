@@ -1,3 +1,15 @@
+/**
+ * Founders / team section.
+ *
+ * NOT rendered on any page right now: founder names are deliberately kept off the
+ * public site for the moment (co-founders' current employers). Kept here so it can
+ * be switched back on quickly.
+ *
+ * To re-enable:
+ *   1. Restore the photos into public/team/ from the HQ repo:
+ *      cp ~/Edyma/edyma-hq/reference/team_photos/{harsh.png,praneeth.jpg,sarvesh.jpg} public/team/
+ *   2. Import and render <TeamSection /> in HomePage.tsx and/or SchoolsPage.tsx.
+ */
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/marketing/primitives'
 

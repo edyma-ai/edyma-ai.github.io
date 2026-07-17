@@ -20,7 +20,6 @@ import {
 } from '@/components/marketing/primitives'
 import { MindmapCard, ScoreRing, TutorChat } from '@/components/marketing/visuals'
 import { SITE } from '@/lib/site'
-import { TeamSection } from '@/components/marketing/TeamSection'
 
 function Hero() {
   return (
@@ -342,7 +341,6 @@ export function HomePage() {
       <TutorSection />
       <RevisionSection />
       <TracksSection />
-      <TeamSection />
       <FaqSection />
       <CtaSection />
       <Footer />

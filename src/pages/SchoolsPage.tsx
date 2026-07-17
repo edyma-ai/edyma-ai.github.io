@@ -21,7 +21,6 @@ import {
   SectionHeading,
 } from '@/components/marketing/primitives'
 import { DashboardCard, ScoreRing, WhatsappCard } from '@/components/marketing/visuals'
-import { TeamSection } from '@/components/marketing/TeamSection'
 import { SITE } from '@/lib/site'
 
 const MAILTO = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent('Edyma for our school')}`
@@ -284,7 +283,6 @@ export function SchoolsPage() {
       <AdminSection />
       <ParentsSection />
       <SetupSection />
-      <TeamSection />
       <CtaSection />
       <Footer />
     </>
