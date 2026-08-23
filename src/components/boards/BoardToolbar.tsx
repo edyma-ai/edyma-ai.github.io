@@ -2,7 +2,7 @@
 // undo/redo, clear, zoom, and pan toggle. Pure presentational — all state lives
 // in BoardEditorPage.
 import type { ReactNode } from 'react'
-import { MousePointer, Move, RotateCcw, RotateCw, ZoomIn, ZoomOut } from 'react-feather'
+import { BookOpen, MousePointer, Move, RotateCcw, RotateCw, ZoomIn, ZoomOut } from 'react-feather'
 import type { ToolKind } from '@/lib/boards'
 import { DEFAULT_COLORS } from '@/lib/strokes'
 import { cn } from '@/lib/cn'
@@ -27,6 +27,9 @@ interface BoardToolbarProps {
   onZoomIn: () => void
   onZoomOut: () => void
   onResetView: () => void
+  /** Whether the chapter-content drawer is showing. */
+  contentOpen: boolean
+  onContentToggle: () => void
 }
 
 function ToolButton({
@@ -83,6 +86,8 @@ export function BoardToolbar(props: BoardToolbarProps) {
     onZoomIn,
     onZoomOut,
     onResetView,
+    contentOpen,
+    onContentToggle,
   } = props
 
   const isCustomColor = !DEFAULT_COLORS.some((c) => c.toLowerCase() === color.toLowerCase())
@@ -203,6 +208,23 @@ export function BoardToolbar(props: BoardToolbarProps) {
       <ToolButton onClick={onClear} label="Clear board">
         <ClearIcon />
       </ToolButton>
+
+      <Divider />
+
+      <button
+        type="button"
+        onClick={onContentToggle}
+        aria-pressed={contentOpen}
+        title="Chapter content"
+        className={cn(
+          'flex h-10 items-center gap-2 rounded-lg px-3 text-sm font-medium transition-all duration-150 active:scale-90',
+          'text-fg hover:bg-surface-hover hover:text-primary',
+          contentOpen && 'bg-primary-muted text-primary',
+        )}
+      >
+        <BookOpen size={20} />
+        Content
+      </button>
     </div>
   )
 }

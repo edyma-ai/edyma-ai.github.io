@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { BookOpen } from 'react-feather'
+import { BookOpen, ChevronRight, Edit3 } from 'react-feather'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Spinner } from '@/components/ui/Spinner'
@@ -25,11 +25,14 @@ export function ClassroomHomePage() {
 
   if (classroom.data.length === 0) {
     return (
-      <EmptyState
-        icon={BookOpen}
-        title="No classes assigned yet"
-        description="The classes you teach appear here as soon as your school assigns you to a section."
-      />
+      <div className="mx-auto w-full max-w-6xl px-5 py-8 sm:px-6">
+        <EmptyState
+          icon={BookOpen}
+          title="No classes assigned yet"
+          description="The classes you teach appear here as soon as your school assigns you to a section."
+        />
+        <WhiteboardCallout />
+      </div>
     )
   }
 
@@ -66,6 +69,29 @@ export function ClassroomHomePage() {
           </section>
         ))}
       </div>
+
+      <WhiteboardCallout />
     </div>
+  )
+}
+
+/** Route into the free-form whiteboard, which pulls chapter content in on its own. */
+function WhiteboardCallout() {
+  return (
+    <Link
+      to="/boards"
+      className="mt-8 flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary/40 hover:bg-surface-hover"
+    >
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-muted text-primary">
+        <Edit3 size={18} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-semibold text-fg">Open a whiteboard</span>
+        <span className="mt-1 block text-sm text-muted">
+          Draw freely and pull up videos, sims and study guides from your chapters.
+        </span>
+      </span>
+      <ChevronRight size={18} className="shrink-0 text-muted" />
+    </Link>
   )
 }

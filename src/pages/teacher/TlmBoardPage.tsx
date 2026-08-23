@@ -231,7 +231,7 @@ function TlmReader({
   }, [toggleFullscreen])
 
   return (
-    <div ref={rootRef} className={cn('relative min-h-screen bg-bg', theme === 'light' && 'present-theme-light')}>
+    <div ref={rootRef} className={cn('relative min-h-screen bg-bg', theme === 'dark' && 'present-theme-dark')}>
       <div className="mx-auto flex w-full max-w-[960px] items-center gap-3 px-8 pt-5">
         <Link
           to={backTo}

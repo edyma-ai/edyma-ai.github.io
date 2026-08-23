@@ -15,12 +15,24 @@ export interface Stroke {
   points: [number, number, number][]
 }
 
+/**
+ * The chapter a board is tied to, so its content drawer reopens on the class,
+ * subject and chapter the teacher last pulled content from. Boards saved before
+ * the drawer existed simply have none.
+ */
+export interface BoardContext {
+  classId: string
+  subjectId: string
+  chapterId: string
+}
+
 export interface Board {
   id: string
   title: string
   strokes: Stroke[]
   createdAt: number
   updatedAt: number
+  context?: BoardContext
 }
 
 function isBrowser(): boolean {

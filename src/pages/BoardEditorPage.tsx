@@ -1,14 +1,16 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronLeft, Clipboard, Copy, Download, Maximize, Minimize, Moon, MousePointer, Save, Scissors, Sun, Trash2 } from 'react-feather'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { BoardCanvas, type BoardCanvasHandle, type BoardContextInfo, type SelectionRect } from '@/components/boards/BoardCanvas'
 import { BoardToolbar } from '@/components/boards/BoardToolbar'
 import { ConfirmModal, type ConfirmOptions } from '@/components/ui/ConfirmModal'
+import { ContentDrawer } from '@/components/boards/ContentDrawer'
+import { ContentPanel, type BoardContentItem } from '@/components/boards/ContentPanel'
 import { ContextMenu, type MenuItem } from '@/components/boards/ContextMenu'
 import { SelectionToolbar } from '@/components/boards/SelectionToolbar'
 import { TitlePromptModal } from '@/components/boards/TitlePromptModal'
-import { BoardsQuotaError, type Board, type Stroke, type ToolKind, deleteBoard, getBoard, upsertBoard } from '@/lib/boards'
+import { BoardsQuotaError, type Board, type BoardContext, type Stroke, type ToolKind, deleteBoard, getBoard, upsertBoard } from '@/lib/boards'
 import { TOOL_PRESETS, paintStroke, strokesBounds } from '@/lib/strokes'
 import { cn } from '@/lib/cn'
 
@@ -34,6 +36,16 @@ function offsetStrokes(list: Stroke[], d: number): Stroke[] {
 
 function translateStrokes(list: Stroke[], dx: number, dy: number): Stroke[] {
   return list.map((st) => ({ ...st, points: st.points.map(([x, y, p]) => [x + dx, y + dy, p] as [number, number, number]) }))
+}
+
+/** The chapter an "Open on a whiteboard" link asked this board to start on. */
+function readRequestedContext(search: string): BoardContext | null {
+  const params = new URLSearchParams(search)
+  const chapterId = params.get('chapter')
+  const classId = params.get('classId')
+  const subjectId = params.get('subjectId')
+  if (!chapterId || !classId || !subjectId) return null
+  return { classId, subjectId, chapterId }
 }
 
 const MOD_LABEL = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘' : 'Ctrl '
@@ -71,13 +83,30 @@ function IconButton({
 export function BoardEditorPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const initial = useMemo(() => (id ? getBoard(id) : undefined), [id])
+  // Read the deep-linked chapter once, before the params are dropped below.
+  const [requestedContext] = useState(() => readRequestedContext(location.search))
+
+  // The params are consumed on arrival, so reloading or sharing the board URL
+  // does not reopen the drawer.
+  useEffect(() => {
+    if (location.search) navigate(location.pathname, { replace: true })
+  }, [location.search, location.pathname, navigate])
 
   if (!initial) return <Navigate to="/boards" replace />
-  return <Editor board={initial} onBack={() => navigate('/boards')} />
+  return <Editor board={initial} requestedContext={requestedContext} onBack={() => navigate('/boards')} />
 }
 
-function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
+function Editor({
+  board,
+  requestedContext,
+  onBack,
+}: {
+  board: Board
+  requestedContext: BoardContext | null
+  onBack: () => void
+}) {
   const canvasRef = useRef<BoardCanvasHandle>(null)
   const rootRef = useRef<HTMLDivElement>(null)
 
@@ -100,6 +129,10 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
   const [showTitlePrompt, setShowTitlePrompt] = useState(false)
   const [confirm, setConfirm] = useState<ConfirmOptions | null>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  // Chapter content: which chapter the drawer is on, and the one item on the canvas.
+  const [context, setContext] = useState<BoardContext | null>(requestedContext ?? board.context ?? null)
+  const [drawerOpen, setDrawerOpen] = useState(Boolean(requestedContext))
+  const [panelItem, setPanelItem] = useState<BoardContentItem | null>(null)
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; world: { x: number; y: number }; onStroke: boolean } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -272,7 +305,7 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
   const persist = useCallback(
     (nextTitle: string): boolean => {
       try {
-        upsertBoard({ ...board, title: nextTitle.trim(), strokes, updatedAt: Date.now() })
+        upsertBoard({ ...board, title: nextTitle.trim(), strokes, context: context ?? undefined, updatedAt: Date.now() })
         setSaveState('saved')
         setError(null)
         return true
@@ -281,7 +314,7 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
         return false
       }
     },
-    [board, strokes],
+    [board, strokes, context],
   )
 
   // Manual save. The first time (untitled draft) this opens the title prompt;
@@ -323,12 +356,31 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
     setPanMode((pPan) => !pPan)
   }, [])
 
+  // The drawer reports the chapter it settled on; an unchanged one must not
+  // start a save, so identical selections keep the current object.
+  const handleContextChange = useCallback((next: BoardContext) => {
+    setContext((current) =>
+      current && current.classId === next.classId && current.subjectId === next.subjectId && current.chapterId === next.chapterId
+        ? current
+        : next,
+    )
+  }, [])
+
   // Keyboard shortcuts: undo/redo, save, and delete-selection.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       // Don't hijack typing in the title field.
       const target = e.target as HTMLElement | null
       if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return
+
+      // The context menu and the modals dismiss themselves on Escape; the
+      // content panel, then the drawer, are next in line.
+      if (e.key === 'Escape') {
+        if (contextMenu || confirm || showTitlePrompt) return
+        if (panelItem) setPanelItem(null)
+        else if (drawerOpen) setDrawerOpen(false)
+        return
+      }
 
       const key = e.key.toLowerCase()
       if (selectMode && selectedIndices.length > 0 && (key === 'delete' || key === 'backspace')) {
@@ -383,7 +435,25 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [undo, redo, saveNow, selectMode, selectedIndices, strokes.length, selectAll, eraseStrokes, copySelection, cutSelection, pasteClipboard, duplicateSelection])
+  }, [
+    undo,
+    redo,
+    saveNow,
+    selectMode,
+    selectedIndices,
+    strokes.length,
+    selectAll,
+    eraseStrokes,
+    copySelection,
+    cutSelection,
+    pasteClipboard,
+    duplicateSelection,
+    contextMenu,
+    confirm,
+    showTitlePrompt,
+    panelItem,
+    drawerOpen,
+  ])
 
   // Debounced autosave — only active once the board has been saved (has a title).
   useEffect(() => {
@@ -458,7 +528,7 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
   }, [strokes, title, theme])
 
   return (
-    <div ref={rootRef} className={cn('relative h-screen w-screen overflow-hidden bg-bg', theme === 'light' && 'present-theme-light')}>
+    <div ref={rootRef} className={cn('relative h-screen w-screen overflow-hidden bg-bg', theme === 'dark' && 'present-theme-dark')}>
       <BoardCanvas
         ref={canvasRef}
         strokes={strokes}
@@ -569,8 +639,8 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
         </div>
       </div>
 
-      {/* Bottom toolbar */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-3">
+      {/* Bottom toolbar: keeps clear of the content drawer so zoom and Content stay reachable */}
+      <div className={cn('pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-3', drawerOpen && 'sm:right-[380px]')}>
         <BoardToolbar
           tool={tool}
           onToolChange={handleToolChange}
@@ -590,8 +660,24 @@ function Editor({ board, onBack }: { board: Board; onBack: () => void }) {
           onZoomIn={() => canvasRef.current?.zoomBy(1.2)}
           onZoomOut={() => canvasRef.current?.zoomBy(1 / 1.2)}
           onResetView={() => canvasRef.current?.resetView()}
+          contentOpen={drawerOpen}
+          onContentToggle={() => setDrawerOpen((open) => !open)}
         />
       </div>
+
+      {panelItem ? <ContentPanel item={panelItem} onClose={() => setPanelItem(null)} /> : null}
+
+      {drawerOpen ? (
+        <ContentDrawer
+          context={context}
+          onContextChange={handleContextChange}
+          onSelectItem={(item) => {
+            setPanelItem(item)
+            setDrawerOpen(false)
+          }}
+          onClose={() => setDrawerOpen(false)}
+        />
+      ) : null}
 
       {showTitlePrompt ? (
         <TitlePromptModal

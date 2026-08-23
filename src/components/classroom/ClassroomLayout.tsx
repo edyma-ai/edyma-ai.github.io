@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { LogOut } from 'react-feather'
+import { Edit3, LogOut } from 'react-feather'
 import { useAuth } from '@/auth/useAuth'
 import { SITE } from '@/lib/site'
 
@@ -18,6 +18,13 @@ export function ClassroomLayout() {
           </Link>
           <div className="flex items-center gap-3">
             {user ? <span className="hidden text-sm text-muted sm:inline">{user.display_name}</span> : null}
+            <Link
+              to="/boards"
+              className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+            >
+              <Edit3 size={15} />
+              Boards
+            </Link>
             <button
               type="button"
               onClick={() => void logout()}

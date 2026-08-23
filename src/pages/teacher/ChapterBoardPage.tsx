@@ -1,16 +1,21 @@
 import { useCallback, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { ChevronLeft, FileText, Film, Zap } from 'react-feather'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { ChevronLeft, Edit3, FileText, Film, Zap } from 'react-feather'
 import { ChapterVideoCard } from '@/components/classroom/ChapterVideoCard'
 import { InteractiveEmbed } from '@/components/classroom/InteractiveEmbed'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Spinner } from '@/components/ui/Spinner'
 import { useApiData } from '@/hooks/useApiData'
+import { BoardsQuotaError, createBoard, upsertBoard } from '@/lib/boards'
 import { fetchChapter, fetchStudyGuides, type StudyGuide } from '@/lib/classroom'
 import { cn } from '@/lib/cn'
 
 type BoardTab = 'guides' | 'interactive' | 'videos'
+
+function isBoardTab(value: string | null): value is BoardTab {
+  return value === 'guides' || value === 'interactive' || value === 'videos'
+}
 
 function formatSharedDate(sharedAt: number): string {
   return new Date(sharedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
@@ -18,7 +23,10 @@ function formatSharedDate(sharedAt: number): string {
 
 export function ChapterBoardPage() {
   const { classId = '', subjectId = '', chapterId = '' } = useParams()
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [selectedTab, setSelectedTab] = useState<BoardTab | null>(null)
+  const [boardError, setBoardError] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     const [chapter, guides] = await Promise.all([
@@ -48,9 +56,25 @@ export function ChapterBoardPage() {
   const elements = chapter.interactive_elements ?? []
   const videos = chapter.videos ?? []
 
-  // Open on the tab that actually has something in it, unless the teacher picked one.
+  // Open on the tab the board panel asked for, else the one that actually has
+  // something in it, unless the teacher has picked one since.
+  const requestedTab = searchParams.get('tab')
   const firstFilledTab: BoardTab = guides.length > 0 ? 'guides' : elements.length > 0 ? 'interactive' : 'videos'
-  const tab = selectedTab ?? firstFilledTab
+  const tab = selectedTab ?? (isBoardTab(requestedTab) ? requestedTab : firstFilledTab)
+
+  // A whiteboard for this chapter: a new local board, named after it, opened
+  // with the content drawer already on this chapter.
+  const openWhiteboard = () => {
+    try {
+      const board = createBoard()
+      upsertBoard({ ...board, title: chapter.name, updatedAt: Date.now() })
+      navigate(
+        `/boards/${board.id}?chapter=${encodeURIComponent(chapterId)}&classId=${encodeURIComponent(classId)}&subjectId=${encodeURIComponent(subjectId)}`,
+      )
+    } catch (err) {
+      setBoardError(err instanceof BoardsQuotaError ? err.message : 'Could not open a whiteboard.')
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-5xl px-5 py-8 sm:px-6">
@@ -62,8 +86,21 @@ export function ChapterBoardPage() {
         Chapters
       </Link>
 
-      <h1 className="mt-4 text-2xl font-bold text-fg">{chapter.name}</h1>
-      {chapter.description ? <p className="mt-1 text-sm text-muted">{chapter.description}</p> : null}
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-fg">{chapter.name}</h1>
+          {chapter.description ? <p className="mt-1 text-sm text-muted">{chapter.description}</p> : null}
+        </div>
+        <button
+          type="button"
+          onClick={openWhiteboard}
+          className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-fg transition-colors hover:border-primary/50 hover:bg-primary-muted hover:text-primary"
+        >
+          <Edit3 size={15} />
+          Open on a whiteboard
+        </button>
+      </div>
+      {boardError ? <p className="mt-2 text-sm text-red-400">{boardError}</p> : null}
 
       <div className="mt-6 flex flex-wrap gap-1 rounded-lg border border-border p-1">
         <TabButton active={tab === 'guides'} onClick={() => setSelectedTab('guides')} label="Study guides" count={guides.length} />

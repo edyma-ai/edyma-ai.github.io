@@ -23,8 +23,11 @@ export function TeacherLoginPage() {
   const location = useLocation()
   const [tab, setTab] = useState<SignInTab>('password')
 
+  // Only in-app destinations are honoured: the classroom itself, or the board
+  // whose content drawer sent the teacher here.
   const requestedPath = (location.state as { from?: string } | null)?.from
-  const destination = requestedPath && requestedPath.indexOf('/teacher') === 0 ? requestedPath : '/teacher'
+  const destination =
+    requestedPath && (requestedPath.indexOf('/teacher') === 0 || requestedPath.indexOf('/boards') === 0) ? requestedPath : '/teacher'
 
   if (user) return <Navigate to={destination} replace />
 

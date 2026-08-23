@@ -76,6 +76,15 @@
   padding-left: 1.25rem;
 }
 
+/* Tailwind's preflight strips list markers; markdown lists want them back. */
+.markdown-body ul {
+  list-style: disc;
+}
+
+.markdown-body ol {
+  list-style: decimal;
+}
+
 .markdown-body li {
   margin: 0.25rem 0;
   color: var(--color-fg);
