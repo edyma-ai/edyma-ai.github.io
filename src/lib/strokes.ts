@@ -47,6 +47,17 @@ export const DEFAULT_COLORS = [
   '#ffffff', // white (for dark surface)
 ] as const
 
+/** Minimum spacing between recorded freehand points, in document/world px. */
+const MIN_POINT_SPACING = 1.5
+
+/**
+ * Whether a freehand point is far enough from the previous one to record.
+ * Downsampling keeps stored strokes lean without a visible change in shape.
+ */
+export function shouldRecordPoint(previous: [number, number, number], x: number, y: number): boolean {
+  return Math.hypot(x - previous[0], y - previous[1]) >= MIN_POINT_SPACING
+}
+
 /** Build a filled Path2D polygon for a stroke's perfect-freehand outline. */
 export function strokeToPath(stroke: Stroke): Path2D {
   const preset = stroke.tool === 'eraser' ? TOOL_PRESETS.pen : TOOL_PRESETS[stroke.tool]

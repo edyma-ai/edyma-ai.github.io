@@ -23,6 +23,14 @@ html {
   @apply antialiased scroll-smooth;
 }
 
+/* Tailwind v4's Preflight makes <button> use the default cursor; restore the
+   pointer cursor for enabled interactive controls. */
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']),
+label:has(> input[type='color']) {
+  cursor: pointer;
+}
+
 body {
   @apply bg-bg text-fg font-sans;
   margin: 0;

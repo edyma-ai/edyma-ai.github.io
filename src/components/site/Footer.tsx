@@ -30,6 +30,11 @@ export function Footer() {
                     Download App
                   </a>
                 </li>
+                <li>
+                  <Link to="/teacher/login" className="transition-colors hover:text-fg">
+                    Teacher sign-in
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>

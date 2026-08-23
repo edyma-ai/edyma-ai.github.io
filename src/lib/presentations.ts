@@ -1,7 +1,7 @@
-const DEFAULT_API_BASE_URL = 'https://api.edyma.in'
+import { API_BASE_URL } from '@/lib/config'
 
-export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || DEFAULT_API_BASE_URL
+// Re-exported so existing importers of the presentation client keep working.
+export { API_BASE_URL }
 
 export type TlmSection = {
   heading: string
